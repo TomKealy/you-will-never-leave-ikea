@@ -1092,6 +1092,7 @@ function buildShowroom() {
     room.itemSpots = spots.slice(0, nItems);
   }
 
+  b.reset();
   // hanging row signs
   for (const [row, [sw, en]] of Object.entries(ROW_SIGN)) {
     const r = +row;
@@ -1475,7 +1476,7 @@ function pa(text) {
 function setMsg(a, b2) { $('#msg .m1').textContent = a || ''; $('#msg .m2').textContent = b2 || ''; $('#msg').classList.toggle('on', !!(a || b2)); }
 function renderList() {
   const lamp = P.hasLamp ? 'done' : '';
-  const tag = P.hasTag ? `<span class="note">GLÖDA — aisle ${TARGET.aisle}, bin ${binStr(TARGET.bin)}</span>` : `<span class="note sm">check the tag! write down aisle + bin</span>`;
+  const tag = P.hasTag ? `<span class="note">GLÖDA — aisle ${TARGET.aisle}, bin ${binStr(TARGET.bin)}</span>` : `<span class="note sm">saw it in a living room… near the bedrooms? check the tag, write down aisle + bin</span>`;
   const n = P.items.length;
   $('#listItems').innerHTML = `
     <li class="${lamp}"><span>lamp!! the nice one</span>
