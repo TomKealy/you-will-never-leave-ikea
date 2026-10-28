@@ -15,6 +15,14 @@ A short first-person game about a Saturday at a flat-pack megastore. You only ne
 | Q | your shopping list |
 | M | sound on/off |
 
+## What's in the store
+
+- A showroom of 60 furnished rooms, with arrows on the floor and shortcuts that may not be shortcuts
+- Faceless mannequin shoppers who browse, bicker and occasionally stare
+- Drawers and wardrobes to open, lamps to switch off, five Allen keys to find
+- Little Emil, hiding somewhere, and his worried parents
+- A dark self-serve warehouse, and six endings
+
 Built with [Three.js](https://threejs.org) r160. Everything (furniture, textures, signage, music) is generated in code; there are no asset files.
 
 Unofficial fan parody. Not affiliated with or endorsed by Inter IKEA Systems B.V.
