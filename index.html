@@ -156,7 +156,7 @@ canvas#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:cros
         <b>W A S D</b><span>walk</span>
         <b>mouse</b><span>look around</span>
         <b>shift</b><span>hurry (costs patience)</span>
-        <b>E</b><span>take · sit · read</span>
+        <b>E / click</b><span>take · sit · open · read</span>
         <b>Q</b><span>your shopping list</span>
       </div>
     </div>
@@ -672,7 +672,7 @@ function addSit(b, lx, lz, h, room) { SITS.push({ pos: b.wp(lx, h, lz), yaw: b.w
 function addSpot(room, b, lx, y, lz) { room.spots.push(b.wp(lx, y, lz)); }
 function addLamp(b, lx, y, lz, k = 1, gr) {
   const a = { p: b.wp(lx, y, lz), k, k0: k }; ANCHORS[b.zone].push(a);
-  if (gr && b.zone === 'showroom') { const L = { a, gr, on: true }; LAMPS.push(L); INTER.push({ zone: 'showroom', pos: a.p, r: .3, reach: 2.6, kind: 'lamp', L }); }
+  if (gr && b.zone === 'showroom') { const L = { a, gr, on: true }; LAMPS.push(L); INTER.push({ zone: 'showroom', pos: a.p, r: .22, reach: 2.6, kind: 'lamp', L }); }
 }
 
 function sofa(b, w, c) {
@@ -1623,7 +1623,7 @@ addEventListener('keydown', e => {
 });
 addEventListener('keyup', e => { keys[e.code] = false; });
 addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
-canvas.addEventListener('mousedown', () => { if (state === 'play' && !pointerLocked) { tryLock(); dragging = true; } });
+canvas.addEventListener('mousedown', e => { if (state !== 'play') return; if (pointerLocked) { if (e.button === 0) interact(); } else { tryLock(); dragging = true; } });
 addEventListener('mouseup', () => dragging = false);
 addEventListener('mousemove', e => { if ((pointerLocked || dragging) && Math.abs(e.movementX) < 300 && Math.abs(e.movementY) < 300) { mouseDX += e.movementX; mouseDY += e.movementY; } });
 document.addEventListener('pointerlockchange', () => { pointerLocked = document.pointerLockElement === canvas; $('#pause').classList.toggle('hidden', pointerLocked || !wantLock || state !== 'play'); });
@@ -1920,7 +1920,8 @@ function findInteract() {
     if (it.kind === 'emil' && !(EMIL && EMIL.state === 'found')) continue;
     _v.subVectors(it.pos, cp); const t = _v.dot(_dir); if (t < 0 || t > it.reach) continue;
     const d2 = _v.lengthSq() - t * t; if (d2 > it.r * it.r) continue;
-    const sc = t - (it.prio || 0);
+    // prefer what the reticle is most squarely on, then what is nearer
+    const sc = Math.sqrt(Math.max(d2, 0)) / it.r + t * .12 - (it.prio || 0) - (it.kind === 'item' ? .35 : 0);
     if (sc < bt) { bt = sc; best = it; }
   }
   return best;

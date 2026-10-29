@@ -11,7 +11,7 @@ A short first-person game about a Saturday at a flat-pack megastore. You only ne
 | W A S D | walk |
 | Mouse | look around (click to capture the mouse) |
 | Shift | hurry (costs patience) |
-| E | take · sit · read |
+| E or left click | take · sit · open · read |
 | Q | your shopping list |
 | M | sound on/off |
 
